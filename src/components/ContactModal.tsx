@@ -58,14 +58,34 @@ export function ContactModal({ onClose }: ContactModalProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const trimmedName = name.trim();
+    const trimmedBiz = biz.trim();
+    const trimmedEmail = email.trim();
+    const normalizedPhone = phone.replace(/\D/g, '');
+
+    if (!trimmedName || !trimmedBiz || !trimmedEmail || !need) {
+      setSubmitError('Please fill in all required fields.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setSubmitError('Please enter a valid email address.');
+      return;
+    }
+
+    if (!/^\d{8,15}$/.test(normalizedPhone)) {
+      setSubmitError('Please enter a valid phone number (8-15 digits).');
+      return;
+    }
+
     setSubmitting(true);
     setSubmitError('');
 
     const payload: LeadFormPayload = {
-      name: name.trim(),
-      business: biz.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
+      name: trimmedName,
+      business: trimmedBiz,
+      email: trimmedEmail,
+      phone: normalizedPhone,
       need,
       message: msg.trim(),
       submittedAt: new Date().toISOString(),
@@ -250,10 +270,17 @@ export function ContactModal({ onClose }: ContactModalProps) {
                 <input
                   required
                   type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]{8,15}"
+                  minLength={8}
+                  maxLength={15}
+                  title="Enter 8-15 digits"
                   style={inputStyle}
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="04xx xxx xxx"
+                  onChange={(e) => {
+                    setPhone(e.target.value.replace(/\D/g, ''));
+                  }}
+                  placeholder="04xxxxxxxx"
                   onFocus={(e) => {
                     e.target.style.borderColor = '#555';
                   }}

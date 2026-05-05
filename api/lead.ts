@@ -6,7 +6,7 @@ type LeadFormPayload = {
   need: string;
   message: string;
   submittedAt: string;
-  source: string;
+  source?: string;
 };
 
 type Req = {
@@ -28,8 +28,12 @@ const needLabelMap: Record<string, string> = {
 
 function validatePayload(payload: Partial<LeadFormPayload> | undefined): payload is LeadFormPayload {
   if (!payload) return false;
-  const required = ['name', 'business', 'email', 'phone', 'need', 'submittedAt', 'source'] as const;
-  return required.every((key) => typeof payload[key] === 'string' && payload[key].trim().length > 0);
+  const required = ['name', 'business', 'email', 'phone', 'need', 'submittedAt'] as const;
+  const hasRequired = required.every((key) => typeof payload[key] === 'string' && payload[key].trim().length > 0);
+  if (!hasRequired) return false;
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email ?? '');
+  const validPhone = /^\d{8,15}$/.test((payload.phone ?? '').replace(/\s+/g, ''));
+  return validEmail && validPhone;
 }
 
 function formatMessage(data: LeadFormPayload): string {
@@ -61,7 +65,7 @@ function formatMessage(data: LeadFormPayload): string {
     optionalMsg,
     '',
     `Submitted: ${submittedSydney} (Sydney)`,
-    `Source: ${data.source}`,
+    'Source: landing page',
   ].join('\n');
 }
 

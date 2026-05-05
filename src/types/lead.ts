@@ -6,5 +6,5 @@ export type LeadFormPayload = {
   need: string;
   message: string;
   submittedAt: string;
-  source: string;
+  source?: string;
 };
