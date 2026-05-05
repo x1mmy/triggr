@@ -69,7 +69,7 @@ export function ContactModal({ onClose }: ContactModalProps) {
       need,
       message: msg.trim(),
       submittedAt: new Date().toISOString(),
-      source: 'triggr-landing-contact-modal',
+      source: 'landing page',
     };
 
     try {

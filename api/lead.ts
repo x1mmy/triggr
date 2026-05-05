@@ -35,6 +35,19 @@ function validatePayload(payload: Partial<LeadFormPayload> | undefined): payload
 function formatMessage(data: LeadFormPayload): string {
   const needLabel = needLabelMap[data.need] ?? data.need;
   const optionalMsg = data.message.trim().length > 0 ? data.message.trim() : 'N/A';
+  const submittedDate = new Date(data.submittedAt);
+  const dtf = new Intl.DateTimeFormat('en-AU', {
+    timeZone: 'Australia/Sydney',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+  const parts = dtf.formatToParts(submittedDate);
+  const get = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value ?? '';
+  const submittedSydney = `${get('day')}/${get('month')}/${get('year')} ${get('hour')}:${get('minute')} ${get('dayPeriod').toUpperCase()}`;
   return [
     '🔥 New Triggr Lead',
     '',
@@ -47,7 +60,7 @@ function formatMessage(data: LeadFormPayload): string {
     'Notes:',
     optionalMsg,
     '',
-    `Submitted: ${data.submittedAt}`,
+    `Submitted: ${submittedSydney} (Sydney)`,
     `Source: ${data.source}`,
   ].join('\n');
 }
