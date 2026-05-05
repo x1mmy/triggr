@@ -1,4 +1,5 @@
 import { useEffect, useState, type CSSProperties, type FormEvent } from 'react';
+import type { LeadFormPayload } from '../types/lead';
 
 type ContactModalProps = {
   onClose: () => void;
@@ -12,6 +13,8 @@ export function ContactModal({ onClose }: ContactModalProps) {
   const [need, setNeed] = useState('');
   const [msg, setMsg] = useState('');
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -53,9 +56,39 @@ export function ContactModal({ onClose }: ContactModalProps) {
     display: 'block',
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setSubmitting(true);
+    setSubmitError('');
+
+    const payload: LeadFormPayload = {
+      name: name.trim(),
+      business: biz.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      need,
+      message: msg.trim(),
+      submittedAt: new Date().toISOString(),
+      source: 'triggr-landing-contact-modal',
+    };
+
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      setSent(true);
+    } catch {
+      setSubmitError('Could not send your enquiry right now. Please try again in a minute.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -286,8 +319,21 @@ export function ContactModal({ onClose }: ContactModalProps) {
                   }}
                 />
               </div>
+              {submitError && (
+                <p
+                  style={{
+                    fontFamily: "'Figtree', sans-serif",
+                    fontSize: '12px',
+                    color: '#d59494',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {submitError}
+                </p>
+              )}
               <button
                 type="submit"
+                disabled={submitting}
                 style={{
                   background: '#FFF',
                   color: '#090909',
@@ -298,18 +344,19 @@ export function ContactModal({ onClose }: ContactModalProps) {
                   fontFamily: "'Figtree', sans-serif",
                   fontWeight: 500,
                   fontSize: '14px',
-                  cursor: 'pointer',
                   transition: 'background 180ms',
                   marginTop: '4px',
+                  opacity: submitting ? 0.75 : 1,
+                  cursor: submitting ? 'wait' : 'pointer',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#E8E8E6';
+                  if (!submitting) e.currentTarget.style.background = '#E8E8E6';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#FFF';
+                  if (!submitting) e.currentTarget.style.background = '#FFF';
                 }}
               >
-                Send message
+                {submitting ? 'Sending...' : 'Send message'}
               </button>
             </form>
           </>

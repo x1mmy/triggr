@@ -179,9 +179,11 @@
 
 .terms-page ul li {
   color: #c0c0bd;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  display: block;
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .terms-page ul li::before {
@@ -189,7 +191,9 @@
   color: #666660;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  margin-top: 2px;
+  position: absolute;
+  left: 0;
+  top: 0.08em;
 }
 
 .terms-page strong {
@@ -208,13 +212,13 @@
 }
 
 .terms-warning {
-  background: #14120d;
-  border: 0.5px solid #3a2f1f;
+  background: #151515;
+  border: 0.5px solid #2a2a2a;
   border-radius: 6px;
   padding: 1rem 1.25rem;
   margin: 1rem 0;
   font-size: 14px;
-  color: #e0d2b2;
+  color: #d9d9d4;
 }
 
 .terms-footer {
