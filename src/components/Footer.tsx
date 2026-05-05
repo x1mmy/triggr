@@ -9,6 +9,7 @@ const productLinks = [
 const companyLinks = [
   { label: 'About', href: '#' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Terms of service', href: '/terms' },
   { label: 'usetriggr.com.au', href: 'https://usetriggr.com.au' },
 ];
 
