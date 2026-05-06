@@ -4,11 +4,12 @@ const productLinks = [
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Services', href: '#services' },
   { label: 'Pricing', href: '#pricing' },
+  { label: 'SMS Demo', href: '/demo' },
 ];
 
 const companyLinks = [
   { label: 'About', href: '/about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' },
   { label: 'Terms of service', href: '/terms' },
   { label: 'usetriggr.com.au', href: 'https://usetriggr.com.au' },
 ];
