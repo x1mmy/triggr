@@ -18,7 +18,6 @@ export function Nav({ onOpenModal }: NavProps) {
     { label: 'How it works', href: '#how-it-works' },
     { label: 'Services', href: '#services' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Demo', href: '/demo' },
   ];
 
   return (

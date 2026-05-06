@@ -4,7 +4,6 @@ const productLinks = [
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Services', href: '#services' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'SMS Demo', href: '/demo' },
 ];
 
 const companyLinks = [
