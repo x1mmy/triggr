@@ -3,25 +3,25 @@ import { useEffect, useRef, useState } from 'react';
 const steps = [
   {
     num: '01',
-    time: '00:00',
+    timing: 'Day 0',
     title: 'Audit your lead flow',
     body: 'We map every touchpoint where leads come in — forms, calls, DMs, referrals. Nothing is assumed.',
   },
   {
     num: '02',
-    time: '00:08',
+    timing: 'Days 1-3',
     title: 'Build the system',
     body: 'Custom automations built around your business. CRM integration, AI response drafts, routing rules — done for you.',
   },
   {
     num: '03',
-    time: '00:09',
+    timing: 'Days 4-5',
     title: 'Test under load',
     body: 'We simulate real enquiry volume before going live. If it breaks, it breaks in testing, not on a Friday night.',
   },
   {
     num: '04',
-    time: '00:45',
+    timing: 'Ongoing',
     title: 'Go live. We monitor.',
     body: 'Systems run. You get notified of anything that needs you. We handle the rest.',
   },
@@ -109,7 +109,7 @@ export function HowItWorks() {
                     transition: 'color 300ms ease',
                   }}
                 >
-                  {step.time}
+                  {`Typical: ${step.timing}`}
                 </div>
               </div>
               <div className="grid-hiw" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '0 40px' }}>
