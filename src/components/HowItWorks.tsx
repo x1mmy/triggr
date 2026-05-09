@@ -3,27 +3,31 @@ import { useEffect, useRef, useState } from 'react';
 const steps = [
   {
     num: '01',
-    timing: 'Day 0',
+    phase: 'Now',
+    elapsed: '0:00',
     title: 'Audit your lead flow',
-    body: 'We map every touchpoint where leads come in — forms, calls, DMs, referrals. Nothing is assumed.',
+    body: 'We map every touchpoint where leads come in. Forms, calls, DMs, referrals. Nothing assumed.',
   },
   {
     num: '02',
-    timing: 'Days 1-3',
+    phase: 'Day 1-3',
+    elapsed: '24:00',
     title: 'Build the system',
-    body: 'Custom automations built around your business. CRM integration, AI response drafts, routing rules — done for you.',
+    body: 'Custom automations built around your business. CRM wiring, SMS alerts, response drafts. Done for you.',
   },
   {
     num: '03',
-    timing: 'Days 4-5',
+    phase: 'Day 4-5',
+    elapsed: '96:00',
     title: 'Test under load',
-    body: 'We simulate real enquiry volume before going live. If it breaks, it breaks in testing, not on a Friday night.',
+    body: 'We simulate real enquiry volume before going live. If it breaks, it breaks here. Not on a Friday night.',
   },
   {
     num: '04',
-    timing: 'Ongoing',
+    phase: 'Live',
+    elapsed: 'Ongoing',
     title: 'Go live. We monitor.',
-    body: 'Systems run. You get notified of anything that needs you. We handle the rest.',
+    body: 'Systems run. You get notified when something needs you. We handle the rest.',
   },
 ];
 
@@ -85,34 +89,13 @@ export function HowItWorks() {
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {steps.map((step, i) => (
-            <div
-              key={i}
-              className="reveal"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '80px 1fr',
-                gap: '0 32px',
-                borderTop: '0.5px solid #222',
-                padding: '28px 0',
-                alignItems: 'start',
-              }}
-            >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', color: '#F0F0EE' }}>
-                  {step.num}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '10px',
-                    color: activeStep >= i ? '#F0F0EE' : '#444440',
-                    transition: 'color 300ms ease',
-                  }}
-                >
-                  {`Typical: ${step.timing}`}
-                </div>
+            <div key={i} className="reveal how-step-row">
+              <div className="how-step-meta">
+                <div className="how-num">{step.num}</div>
+                <div className="how-phase">{step.phase}</div>
+                <div className={`how-elapsed${activeStep >= i ? ' is-lit' : ''}`}>{step.elapsed}</div>
               </div>
-              <div className="grid-hiw" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '0 40px' }}>
+              <div className="how-step-content grid-hiw">
                 <div
                   style={{
                     fontFamily: "'Syne', sans-serif",

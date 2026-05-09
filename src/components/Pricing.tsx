@@ -293,6 +293,86 @@ export function Pricing({ onOpenModal }: PricingProps) {
           </div>
         </div>
 
+        <div className="reveal" style={{ borderTop: '0.5px solid #222', paddingTop: '48px', marginTop: '8px' }}>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '10px',
+              color: '#444440',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              marginBottom: '16px',
+            }}
+          >
+            Custom automation
+          </div>
+          <h3
+            style={{
+              fontFamily: "'Syne', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(24px, 3vw, 36px)',
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              color: '#F0F0EE',
+              marginBottom: '28px',
+              maxWidth: '720px',
+            }}
+          >
+            Got something you want to automate?
+          </h3>
+          <div className="pricing-custom-split">
+            <p
+              style={{
+                fontFamily: "'Figtree', sans-serif",
+                fontSize: '15px',
+                color: '#888884',
+                lineHeight: 1.65,
+                margin: 0,
+                maxWidth: '52ch',
+              }}
+            >
+              If it is not covered above, we can still scope it. Custom workflows, odd integrations, or glue between tools
+              you already use. Tell us what you are trying to wire up and we will figure out the leanest way to run it.
+            </p>
+            <a
+              href="#contact"
+              className="pricing-custom-cta"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#FFF',
+                color: '#090909',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '14px 24px',
+                minHeight: '44px',
+                fontFamily: "'Figtree', sans-serif",
+                fontWeight: 500,
+                fontSize: '14px',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                transition: 'background 180ms, transform 120ms cubic-bezier(0.23, 1, 0.32, 1)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#E8E8E6';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#FFF';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+              onMouseDown={(e) => {
+                e.currentTarget.style.transform = 'scale(0.98)';
+              }}
+              onMouseUp={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              Let&apos;s talk
+            </a>
+          </div>
+        </div>
+
         <div className="reveal" style={{ borderTop: '0.5px solid #1A1A1A', paddingTop: '24px', marginBottom: '16px' }}>
           <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: '13px', color: '#444440', lineHeight: 1.7, maxWidth: '680px' }}>
             Building a website? We offer lead conversion automation as an add-on — $500 to setup, $150/month. One client over
