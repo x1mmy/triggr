@@ -10,6 +10,7 @@ const companyLinks = [
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
   { label: 'Terms of service', href: '/terms' },
+  { label: 'Privacy policy', href: '/privacy' },
   { label: 'usetriggr.com.au', href: 'https://usetriggr.com.au' },
 ];
 
