@@ -1,6 +1,16 @@
+# Dependencies & build (matches anywhere in tree)
 node_modules
 dist
 .DS_Store
 *.local
-_design-handoff/
+
+# Env files
 .env
+landing-page/.env
+
+# Design handoff (local only)
+_design-handoff/
+
+# Local marketing and mockup assets (not part of the deployed site)
+marketing/
+mockups/
