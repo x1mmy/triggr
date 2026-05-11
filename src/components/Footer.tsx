@@ -54,7 +54,7 @@ export function Footer() {
                 maxWidth: '260px',
               }}
             >
-              Done-for-you AI automation and custom web development. Western Sydney.
+              Done-for-you AI automation and custom web development. Sydney.
             </div>
           </div>
           <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
@@ -150,7 +150,7 @@ export function Footer() {
             © {year} Triggr. All rights reserved.
           </div>
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: '#444440' }}>
-            Western Sydney, Australia
+            Sydney, Australia
           </div>
         </div>
       </div>

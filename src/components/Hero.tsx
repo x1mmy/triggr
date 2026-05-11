@@ -145,7 +145,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 background: '#111',
               }}
             >
-              Western Sydney · Automation & Web Dev
+              Sydney · Automation & Web Dev
             </span>
           </div>
 
