@@ -1,4 +1,5 @@
 import { LogoMark } from './LogoMark';
+import { IconFacebook, IconInstagram, IconLinkedIn, IconX } from './FooterSocialIcons';
 
 const productLinks = [
   { label: 'How it works', href: '#how-it-works' },
@@ -12,6 +13,13 @@ const companyLinks = [
   { label: 'Terms of service', href: '/terms' },
   { label: 'Privacy policy', href: '/privacy' },
   { label: 'usetriggr.com.au', href: 'https://usetriggr.com.au' },
+];
+
+const socialLinks = [
+  { label: 'Triggr on Instagram', href: 'https://www.instagram.com/usetriggr/', Icon: IconInstagram },
+  { label: 'Triggr on Facebook', href: 'https://www.facebook.com/profile.php?id=61589326212067', Icon: IconFacebook },
+  { label: 'Triggr on LinkedIn', href: 'https://www.linkedin.com/company/usetriggr/', Icon: IconLinkedIn },
+  { label: 'Triggr on X', href: 'https://x.com/usetriggr', Icon: IconX },
 ];
 
 export function Footer() {
@@ -129,6 +137,34 @@ export function Footer() {
                     }}
                   >
                     {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '10px',
+                  color: '#444440',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  marginBottom: '14px',
+                }}
+              >
+                Social
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' }}>
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="footer-social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                  >
+                    <Icon />
                   </a>
                 ))}
               </div>

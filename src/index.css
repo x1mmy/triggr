@@ -189,6 +189,41 @@ select option {
   color: #f0f0ee;
 }
 
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #888884;
+  text-decoration: none;
+  border-radius: 8px;
+  transition:
+    color 180ms ease,
+    transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-social-link:hover {
+    color: #f0f0ee;
+  }
+}
+
+.footer-social-link:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link:active {
+    transform: none;
+  }
+}
+
+.footer-social-link:focus-visible {
+  outline: 2px solid #888884;
+  outline-offset: 3px;
+}
+
 .how-step-row {
   display: flex;
   flex-direction: row;
