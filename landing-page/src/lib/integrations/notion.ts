@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import type { OnboardingPayload } from '@/lib/onboarding/schemas';
 import { buildClientsDatabaseProperties, getNotionClientsPropertyNames } from '@/lib/onboarding/notion-map';
-import { buildOnboardingSummary, serviceLabelForPayload } from '@/lib/onboarding/summary';
+import { buildOnboardingSummary } from '@/lib/onboarding/summary';
 
 function getEnv(name: string): string | undefined {
   const v = process.env[name];
@@ -54,7 +54,7 @@ export async function createNotionClientRow(
   }
 
   const notion = new Client({ auth: apiKey });
-  const title = `${payload.businessName} — ${serviceLabelForPayload(payload)}`;
+  const title = payload.fullName.trim();
   const summary = buildOnboardingSummary(payload, fileUrls);
   const propNames = getNotionClientsPropertyNames();
   const properties = buildClientsDatabaseProperties(propNames, title, summary, payload, new Date()) as Parameters<

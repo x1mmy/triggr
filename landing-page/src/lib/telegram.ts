@@ -14,12 +14,11 @@ export function formatSydneyTimestamp(date: Date = new Date()): string {
   return `${get('day')}/${get('month')}/${get('year')} ${get('hour')}:${get('minute')} ${get('dayPeriod').toUpperCase()} (Sydney)`;
 }
 
-export async function sendTelegramMessage(text: string): Promise<{ ok: true } | { ok: false; error: string; details?: string }> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
-    return { ok: false, error: 'Telegram env vars missing' };
-  }
+async function postTelegramMessage(
+  token: string,
+  chatId: string,
+  text: string,
+): Promise<{ ok: true } | { ok: false; error: string; details?: string }> {
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -30,6 +29,28 @@ export async function sendTelegramMessage(text: string): Promise<{ ok: true } | 
     return { ok: false, error: 'Telegram API error', details };
   }
   return { ok: true };
+}
+
+/** Contact form / marketing lead alerts */
+export async function sendTelegramMessage(text: string): Promise<{ ok: true } | { ok: false; error: string; details?: string }> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    return { ok: false, error: 'Telegram env vars missing' };
+  }
+  return postTelegramMessage(token, chatId, text);
+}
+
+/** Onboarding form success + error alerts */
+export async function sendOnboardingTelegramMessage(
+  text: string,
+): Promise<{ ok: true } | { ok: false; error: string; details?: string }> {
+  const token = process.env.ONBOARDING_TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.ONBOARDING_TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    return { ok: false, error: 'Onboarding Telegram env vars missing' };
+  }
+  return postTelegramMessage(token, chatId, text);
 }
 
 export async function notifyOnboardingError(context: string, err: unknown): Promise<void> {
@@ -45,7 +66,7 @@ export async function notifyOnboardingError(context: string, err: unknown): Prom
     stack ? `\n${stack}` : '',
   ].join('\n');
   try {
-    await sendTelegramMessage(text.slice(0, 4000));
+    await sendOnboardingTelegramMessage(text.slice(0, 4000));
   } catch {
     /* avoid throw */
   }

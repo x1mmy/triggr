@@ -32,9 +32,8 @@ import {
   onboardingShellDone,
   onboardingShellForm,
   onboardingStepMeta,
-  onboardingSubmitFill,
-  onboardingSubmitTrack,
 } from '@/components/onboarding/onboarding-styles';
+import { OnboardingSubmitOverlay } from '@/components/onboarding/OnboardingSubmitOverlay';
 import { useMultipartSubmit } from '@/components/onboarding/useMultipartSubmit';
 import { LogoMark } from '@/components/LogoMark';
 
@@ -46,7 +45,7 @@ export function AutomationOnboardingClient({ greetingName }: Props) {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [postSubmitNote, setPostSubmitNote] = useState('');
-  const { progress, error, submitting, submitFormData, setError } = useMultipartSubmit();
+  const { progress, phase, error, submitting, submitFormData, setError } = useMultipartSubmit();
 
   const [fullName, setFullName] = useState('');
   const [businessName, setBusinessName] = useState('');
@@ -158,6 +157,7 @@ export function AutomationOnboardingClient({ greetingName }: Props) {
 
   return (
     <div className="onboarding-root" style={onboardingShellForm}>
+      <OnboardingSubmitOverlay open={submitting} progress={progress} phase={phase} />
       <header style={onboardingHeaderBlock}>
         <Link href="/" style={onboardingLogoLink}>
           <LogoMark size={22} color="#F0F0EE" />
@@ -299,13 +299,6 @@ export function AutomationOnboardingClient({ greetingName }: Props) {
       )}
 
       {error && <p style={onboardingErrorText}>{error}</p>}
-      {submitting && (
-        <div style={{ marginTop: 12 }}>
-          <div style={onboardingSubmitTrack}>
-            <div style={{ ...onboardingSubmitFill, width: `${progress}%` }} />
-          </div>
-        </div>
-      )}
 
       <div style={onboardingNavRow}>
         {step > 0 && (

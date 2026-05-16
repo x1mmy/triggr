@@ -38,9 +38,8 @@ import {
   onboardingShellDone,
   onboardingShellForm,
   onboardingStepMeta,
-  onboardingSubmitFill,
-  onboardingSubmitTrack,
 } from '@/components/onboarding/onboarding-styles';
+import { OnboardingSubmitOverlay } from '@/components/onboarding/OnboardingSubmitOverlay';
 import { useMultipartSubmit } from '@/components/onboarding/useMultipartSubmit';
 import { LogoMark } from '@/components/LogoMark';
 
@@ -52,7 +51,7 @@ export function BothOnboardingClient({ greetingName }: Props) {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [postSubmitNote, setPostSubmitNote] = useState('');
-  const { progress, error, submitting, submitFormData, setError } = useMultipartSubmit();
+  const { progress, phase, error, submitting, submitFormData, setError } = useMultipartSubmit();
 
   const [fullName, setFullName] = useState('');
   const [businessName, setBusinessName] = useState('');
@@ -267,6 +266,7 @@ export function BothOnboardingClient({ greetingName }: Props) {
 
   return (
     <div className="onboarding-root" style={onboardingShellForm}>
+      <OnboardingSubmitOverlay open={submitting} progress={progress} phase={phase} />
       <header style={onboardingHeaderBlock}>
         <Link href="/" style={onboardingLogoLink}>
           <LogoMark size={22} color="#F0F0EE" />
@@ -593,15 +593,6 @@ export function BothOnboardingClient({ greetingName }: Props) {
       )}
 
       {error && <p style={onboardingErrorText}>{error}</p>}
-
-      {submitting && (
-        <div style={{ marginTop: 16 }}>
-          <div style={onboardingSubmitTrack}>
-            <div style={{ ...onboardingSubmitFill, width: `${progress}%` }} />
-          </div>
-          <p style={{ ...onboardingHelper, marginTop: 8 }}>Uploading… {progress}%</p>
-        </div>
-      )}
 
       <div style={onboardingNavRow}>
         {step > 0 && (

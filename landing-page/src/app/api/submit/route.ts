@@ -10,7 +10,7 @@ import {
   MAX_FILE_BYTES,
 } from '@/lib/onboarding/constants';
 import { serviceLabelForPayload } from '@/lib/onboarding/summary';
-import { formatSydneyTimestamp, notifyOnboardingError, sendTelegramMessage } from '@/lib/telegram';
+import { formatSydneyTimestamp, notifyOnboardingError, sendOnboardingTelegramMessage } from '@/lib/telegram';
 
 const SUBMIT_SUPPORT_EMAIL = 'hi@usetriggr.com.au';
 const SUBMIT_USER_ERROR = `Could not save your submission. Please email ${SUBMIT_SUPPORT_EMAIL}.`;
@@ -176,23 +176,21 @@ async function collectUploads(fd: FormData, payload: OnboardingPayload): Promise
   return out;
 }
 
-async function sendSuccessTelegram(
-  payload: OnboardingPayload,
-  fileUrls: { label: string; url: string }[],
-  extras: string,
-) {
+async function sendSuccessTelegram(payload: OnboardingPayload, extras: string) {
   const time = formatSydneyTimestamp();
   const service = serviceLabelForPayload(payload);
-  const lines = [
+  const text = [
     `New client onboarded: ${payload.fullName} — ${payload.businessName} (${service}).`,
     `Form submitted at ${time}.`,
     '',
     extras,
-  ];
-  if (fileUrls.length) {
-    lines.push('', 'Files:', ...fileUrls.map((f) => `${f.label}: ${f.url}`));
+  ]
+    .filter(Boolean)
+    .join('\n');
+  const result = await sendOnboardingTelegramMessage(text.slice(0, 4000));
+  if (!result.ok) {
+    throw new Error(result.error);
   }
-  await sendTelegramMessage(lines.filter(Boolean).join('\n').slice(0, 4000));
 }
 
 export async function POST(request: Request) {
@@ -241,7 +239,7 @@ export async function POST(request: Request) {
     const notionNote = notionRes.url ? `Notion: ${notionRes.url}` : 'Notion: created';
 
     try {
-      await sendSuccessTelegram(payload, fileUrls, [notionNote, linearNote].filter(Boolean).join('\n'));
+      await sendSuccessTelegram(payload, [notionNote, linearNote].filter(Boolean).join('\n'));
     } catch (e) {
       await notifyOnboardingError('Telegram success message failed', e);
     }
