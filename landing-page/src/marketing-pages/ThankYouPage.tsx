@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LogoMark } from '@/components/LogoMark';
 import { GOOGLE_ADS_LEAD_CONVERSION } from '@/lib/google-ads';
@@ -9,19 +10,12 @@ import { GOOGLE_ADS_LEAD_CONVERSION } from '@/lib/google-ads';
 function ThankYouContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const conversionFired = useRef(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (searchParams.get('submitted') !== '1') {
       router.replace('/contact');
       return;
-    }
-    if (!conversionFired.current) {
-      conversionFired.current = true;
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'conversion', { send_to: GOOGLE_ADS_LEAD_CONVERSION });
-      }
     }
     setReady(true);
   }, [searchParams, router]);
@@ -32,6 +26,9 @@ function ThankYouContent() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#090909', color: '#F0F0EE' }}>
+      <Script id="google-ads-lead-conversion" strategy="afterInteractive">
+        {`gtag('event', 'conversion', {'send_to': '${GOOGLE_ADS_LEAD_CONVERSION}'});`}
+      </Script>
       <header
         style={{
           maxWidth: '1200px',
