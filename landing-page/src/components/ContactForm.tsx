@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, type CSSProperties, type FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { THANK_YOU_PATH } from '@/lib/google-ads';
 import type { LeadFormPayload } from '@/types/lead';
 
 type ContactFormProps = {
@@ -14,7 +16,7 @@ export function ContactForm({ source = 'landing page' }: ContactFormProps) {
   const [phone, setPhone] = useState('');
   const [need, setNeed] = useState('');
   const [msg, setMsg] = useState('');
-  const [sent, setSent] = useState(false);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
@@ -89,7 +91,7 @@ export function ContactForm({ source = 'landing page' }: ContactFormProps) {
         throw new Error('Failed to submit form');
       }
 
-      setSent(true);
+      router.push(THANK_YOU_PATH);
     } catch {
       setSubmitError('Could not send your enquiry right now. Please try again in a minute.');
     } finally {
@@ -97,34 +99,6 @@ export function ContactForm({ source = 'landing page' }: ContactFormProps) {
     }
   };
 
-  if (sent) {
-    return (
-      <div style={{ textAlign: 'center', padding: '20px 0' }}>
-        <div
-          style={{
-            fontFamily: "'Syne', sans-serif",
-            fontWeight: 700,
-            fontSize: '24px',
-            color: '#F0F0EE',
-            letterSpacing: '-0.02em',
-            marginBottom: '12px',
-          }}
-        >
-          We&apos;ll be in touch.
-        </div>
-        <p
-          style={{
-            fontFamily: "'Figtree', sans-serif",
-            fontSize: '14px',
-            color: '#888884',
-            lineHeight: 1.65,
-          }}
-        >
-          Thanks for reaching out. We typically respond within one business day.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <>
