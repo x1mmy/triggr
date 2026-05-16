@@ -22,3 +22,7 @@ npm run dev
 ```
 
 Copy `.env.example` to `.env` and fill values for integrations you want to exercise locally.
+
+## Vercel (monorepo)
+
+If this repository includes folders outside `landing-page/`, set **Root Directory** to `landing-page` in the Vercel project settings. The app uses Next.js App Router; `landing-page/vercel.json` is `{}` (no SPA rewrites).
