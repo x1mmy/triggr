@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
-import { ContactModal } from './components/ContactModal';
-import { CTAStrip } from './components/CTAStrip';
-import { Footer } from './components/Footer';
-import { Hero } from './components/Hero';
-import { HowItWorks } from './components/HowItWorks';
-import { Nav } from './components/Nav';
-import { Pricing } from './components/Pricing';
-import { Problem } from './components/Problem';
-import { SectionBorder } from './components/SectionBorder';
-import { Services } from './components/Services';
+'use client';
 
-export default function App() {
+import { useEffect, useState } from 'react';
+import { ContactModal } from '@/components/ContactModal';
+import { CTAStrip } from '@/components/CTAStrip';
+import { Footer } from '@/components/Footer';
+import { Hero } from '@/components/Hero';
+import { HowItWorks } from '@/components/HowItWorks';
+import { Nav } from '@/components/Nav';
+import { Pricing } from '@/components/Pricing';
+import { Problem } from '@/components/Problem';
+import { SectionBorder } from '@/components/SectionBorder';
+import { Services } from '@/components/Services';
+
+export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);

@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 type LeadFormPayload = {
   name: string;
   business: string;
@@ -7,16 +9,6 @@ type LeadFormPayload = {
   message: string;
   submittedAt: string;
   source?: string;
-};
-
-type Req = {
-  method?: string;
-  body?: LeadFormPayload;
-};
-
-type Res = {
-  status: (code: number) => Res;
-  json: (payload: unknown) => void;
 };
 
 const needLabelMap: Record<string, string> = {
@@ -69,26 +61,27 @@ function formatMessage(data: LeadFormPayload): string {
   ].join('\n');
 }
 
-export default async function handler(req: Req, res: Res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ ok: false, error: 'Method not allowed' });
-    return;
-  }
-
+export async function POST(request: Request) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!token || !chatId) {
-    res.status(500).json({ ok: false, error: 'Telegram env vars are missing' });
-    return;
+    return NextResponse.json({ ok: false, error: 'Telegram env vars are missing' }, { status: 500 });
   }
 
-  if (!validatePayload(req.body)) {
-    res.status(400).json({ ok: false, error: 'Invalid form payload' });
-    return;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const text = formatMessage(req.body);
+  if (!validatePayload(body as Partial<LeadFormPayload>)) {
+    return NextResponse.json({ ok: false, error: 'Invalid form payload' }, { status: 400 });
+  }
+
+  const payload = body as LeadFormPayload;
+  const text = formatMessage(payload);
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -102,12 +95,11 @@ export default async function handler(req: Req, res: Res) {
 
     if (!response.ok) {
       const details = await response.text();
-      res.status(502).json({ ok: false, error: 'Telegram API error', details });
-      return;
+      return NextResponse.json({ ok: false, error: 'Telegram API error', details }, { status: 502 });
     }
 
-    res.status(200).json({ ok: true });
+    return NextResponse.json({ ok: true });
   } catch (error) {
-    res.status(500).json({ ok: false, error: 'Failed to send Telegram message', details: String(error) });
+    return NextResponse.json({ ok: false, error: 'Failed to send Telegram message', details: String(error) }, { status: 500 });
   }
 }

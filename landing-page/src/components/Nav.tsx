@@ -1,3 +1,6 @@
+'use client';
+
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { LogoMark } from './LogoMark';
 
@@ -15,9 +18,9 @@ export function Nav({ onOpenModal }: NavProps) {
   }, []);
 
   const links = [
-    { label: 'How it works', href: '#how-it-works' },
-    { label: 'Services', href: '#services' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'How it works', href: '/#how-it-works' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Pricing', href: '/#pricing' },
   ];
 
   return (
@@ -39,7 +42,7 @@ export function Nav({ onOpenModal }: NavProps) {
         transition: 'background 220ms cubic-bezier(.16,1,.3,1), border-color 220ms cubic-bezier(.16,1,.3,1)',
       }}
     >
-      <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '9px', textDecoration: 'none' }}>
+      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '9px', textDecoration: 'none' }}>
         <LogoMark size={22} color="#F0F0EE" />
         <span
           style={{
@@ -52,7 +55,7 @@ export function Nav({ onOpenModal }: NavProps) {
         >
           TRIGGR
         </span>
-      </a>
+      </Link>
 
       <div className="nav-links-desktop" style={{ gap: '28px', alignItems: 'center' }}>
         {links.map((l) => (
@@ -80,7 +83,7 @@ export function Nav({ onOpenModal }: NavProps) {
 
       <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
         <a
-          href="#pricing"
+          href="/#pricing"
           className="nav-links-desktop"
           style={{
             background: 'transparent',

@@ -1,4 +1,4 @@
-import { LogoMark } from '../components/LogoMark';
+import { LogoMark } from '@/components/LogoMark';
 import '../terms.css';
 
 export function TermsPage() {

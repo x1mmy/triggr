@@ -1,10 +1,13 @@
+'use client';
+
+import Link from 'next/link';
 import { LogoMark } from './LogoMark';
 import { IconFacebook, IconInstagram, IconLinkedIn, IconX } from './FooterSocialIcons';
 
 const productLinks = [
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Services', href: '#services' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'How it works', href: '/#how-it-works' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Pricing', href: '/#pricing' },
 ];
 
 const companyLinks = [
@@ -39,7 +42,7 @@ export function Footer() {
           }}
         >
           <div>
-            <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', marginBottom: '10px' }}>
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', marginBottom: '10px' }}>
               <LogoMark size={18} color="#F0F0EE" />
               <span
                 style={{
@@ -52,7 +55,7 @@ export function Footer() {
               >
                 TRIGGR
               </span>
-            </a>
+            </Link>
             <div
               style={{
                 fontFamily: "'Figtree', sans-serif",

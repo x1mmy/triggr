@@ -1,5 +1,7 @@
+'use client';
+
 import { useMemo, useState, type CSSProperties, type FormEvent } from 'react';
-import { LogoMark } from '../components/LogoMark';
+import { LogoMark } from '@/components/LogoMark';
 
 type DemoFormState = {
   name: string;

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 function useCountUp(target: number, duration: number, started: boolean) {

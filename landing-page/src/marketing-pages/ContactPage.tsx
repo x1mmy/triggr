@@ -1,5 +1,5 @@
-import { ContactForm } from '../components/ContactForm';
-import { LogoMark } from '../components/LogoMark';
+import { ContactForm } from '@/components/ContactForm';
+import { LogoMark } from '@/components/LogoMark';
 
 export function ContactPage() {
   return (

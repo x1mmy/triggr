@@ -1,17 +1,9 @@
+import { NextResponse } from 'next/server';
+
 type DemoSmsPayload = {
   name: string;
   phone: string;
   businessType: string;
-};
-
-type Req = {
-  method?: string;
-  body?: Partial<DemoSmsPayload>;
-};
-
-type Res = {
-  status: (code: number) => Res;
-  json: (payload: unknown) => void;
 };
 
 const DEFAULT_WEBHOOK_URL = 'https://eoox4atsq75w3h.m.pipedream.net';
@@ -43,20 +35,22 @@ function buildSmsMessage(name: string): string {
   return `Hi ${name}, this is what a Triggr lead alert looks like. You'd get this instantly when someone submits a form. That's it. No emails, no delays. -Triggr`;
 }
 
-export default async function handler(req: Req, res: Res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ success: false, message: 'Failed to send SMS. Please try again.' });
-    return;
+export async function POST(request: Request) {
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ success: false, message: 'Failed to send SMS. Please try again.' }, { status: 400 });
   }
 
-  if (!validatePayload(req.body)) {
-    res.status(400).json({ success: false, message: 'Failed to send SMS. Please try again.' });
-    return;
+  if (!validatePayload(body as Partial<DemoSmsPayload>)) {
+    return NextResponse.json({ success: false, message: 'Failed to send SMS. Please try again.' }, { status: 400 });
   }
 
-  const phone = normalizeAustralianMobile(req.body.phone)!;
-  const name = req.body.name.trim();
-  const businessType = req.body.businessType.trim();
+  const demoBody = body as DemoSmsPayload;
+  const phone = normalizeAustralianMobile(demoBody.phone)!;
+  const name = demoBody.name.trim();
+  const businessType = demoBody.businessType.trim();
   const webhookUrl = process.env.PIPEDREAM_DEMO_SMS_WEBHOOK_URL || DEFAULT_WEBHOOK_URL;
   const smsMessage = buildSmsMessage(name);
 
@@ -73,12 +67,11 @@ export default async function handler(req: Req, res: Res) {
     });
 
     if (!webhookResponse.ok) {
-      res.status(502).json({ success: false, message: 'Failed to send SMS. Please try again.' });
-      return;
+      return NextResponse.json({ success: false, message: 'Failed to send SMS. Please try again.' }, { status: 502 });
     }
 
-    res.status(200).json({ success: true, message: 'SMS sent successfully' });
+    return NextResponse.json({ success: true, message: 'SMS sent successfully' });
   } catch {
-    res.status(500).json({ success: false, message: 'Failed to send SMS. Please try again.' });
+    return NextResponse.json({ success: false, message: 'Failed to send SMS. Please try again.' }, { status: 500 });
   }
 }

@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, type CSSProperties, type FormEvent } from 'react';
-import type { LeadFormPayload } from '../types/lead';
+import type { LeadFormPayload } from '@/types/lead';
 
 type ContactFormProps = {
   source?: string;
