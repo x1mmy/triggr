@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { BUSINESS, SITE_URL } from '@/lib/seo/entity';
+import { buildLocalBusinessJsonLd } from '@/lib/seo/schema';
 import './globals.css';
 
 const GOOGLE_ADS_TAG_ID = 'AW-18163960237';
+
+const jsonLd = buildLocalBusinessJsonLd();
 
 export const viewport: Viewport = {
   themeColor: '#090909',
@@ -11,42 +15,26 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'Triggr | AI Automation & Web Dev for Sydney Tradies',
-  description:
-    'Done-for-you AI automation and custom web development for Sydney trade businesses. Stop losing jobs to slow response times. Fast setup, zero templates.',
-  metadataBase: new URL('https://usetriggr.com.au'),
+  description: BUSINESS.description,
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
-    url: 'https://usetriggr.com.au/',
+    url: `${SITE_URL}/`,
     title: 'Triggr | AI Automation & Web Dev for Sydney Tradies',
-    description:
-      'Done-for-you AI automation and custom web development for Sydney trade businesses. Stop losing jobs to slow response times. Fast setup, zero templates.',
-    images: ['https://usetriggr.com.au/og-image.jpg'],
-    siteName: 'Triggr',
+    description: BUSINESS.description,
+    images: [`${SITE_URL}/og-image.jpg`],
+    siteName: BUSINESS.name,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Triggr | AI Automation & Web Dev for Sydney Tradies',
-    description:
-      'Done-for-you AI automation and custom web development for Sydney trade businesses. Stop losing jobs to slow response times. Fast setup, zero templates.',
-    images: ['https://usetriggr.com.au/og-image.jpg'],
+    description: BUSINESS.description,
+    images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: [{ rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' }],
-};
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'Triggr',
-  url: 'https://usetriggr.com.au',
-  description: 'Done-for-you AI automation and custom web development for Sydney trade businesses',
-  areaServed: 'Sydney',
-  serviceType: ['Web Development', 'Automation', 'AI Automation'],
-  address: {
-    '@type': 'PostalAddress',
-    addressRegion: 'NSW',
-    addressCountry: 'AU',
-  },
-  sameAs: ['https://au.linkedin.com/company/triggrai'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -62,7 +50,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', '${GOOGLE_ADS_TAG_ID}');
           `}
         </Script>
-        <link rel="canonical" href="https://usetriggr.com.au" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link

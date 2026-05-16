@@ -104,7 +104,7 @@ export function DemoPage() {
       setSuccess(true);
       setForm({ name: '', phone: '', businessType: '' });
     } catch {
-      setError('Something went wrong. Try again or contact us at hello@usetriggr.com.au');
+      setError('Something went wrong. Try again or contact us at hi@usetriggr.com.au');
     } finally {
       setSubmitting(false);
     }
@@ -305,7 +305,7 @@ export function DemoPage() {
                 lineHeight: 1.6,
               }}
             >
-              Questions? Email hello@usetriggr.com.au
+              Questions? Email hi@usetriggr.com.au
             </p>
           </div>
         </div>
