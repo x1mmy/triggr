@@ -33,8 +33,10 @@ import {
   onboardingShellForm,
   onboardingStepMeta,
 } from '@/components/onboarding/onboarding-styles';
+import { OnboardingPaymentConfirmed } from '@/components/onboarding/OnboardingPaymentConfirmed';
 import { OnboardingSubmitOverlay } from '@/components/onboarding/OnboardingSubmitOverlay';
 import { useMultipartSubmit } from '@/components/onboarding/useMultipartSubmit';
+import { useOnboardingStarted } from '@/components/onboarding/useOnboardingStarted';
 import { LogoMark } from '@/components/LogoMark';
 
 const TOTAL = 4;
@@ -42,6 +44,7 @@ const TOTAL = 4;
 type Props = { greetingName?: string };
 
 export function AutomationOnboardingClient({ greetingName }: Props) {
+  const { started, beginOnboarding, ready } = useOnboardingStarted('automation');
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [postSubmitNote, setPostSubmitNote] = useState('');
@@ -127,6 +130,14 @@ export function AutomationOnboardingClient({ greetingName }: Props) {
 
   const primaryEnabled = canNext && !submitting;
 
+  if (!ready) {
+    return <div className="onboarding-root" style={{ minHeight: '100dvh' }} aria-busy="true" />;
+  }
+
+  if (!started) {
+    return <OnboardingPaymentConfirmed greetingName={greetingName} onStart={beginOnboarding} />;
+  }
+
   if (done) {
     return (
       <div className="onboarding-root" style={onboardingShellDone}>
@@ -164,7 +175,8 @@ export function AutomationOnboardingClient({ greetingName }: Props) {
           <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 14, color: '#F0F0EE', letterSpacing: '0.12em' }}>TRIGGR</span>
         </Link>
         <p style={onboardingIntro}>
-          Payment received. Let&apos;s get you set up{greetingName ? `, ${greetingName}` : ''}.
+          A few quick questions
+          {greetingName ? `, ${greetingName}` : ''} to wire up your automations.
         </p>
         <div style={onboardingProgressTrack}>
           <div style={{ ...onboardingProgressFill, width: `${((step + 1) / TOTAL) * 100}%` }} />

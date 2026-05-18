@@ -267,6 +267,156 @@ select option {
   opacity: 1;
 }
 
+/* Onboarding: payment confirmed gate */
+.ob-payment-confirmed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding-top: max(2.5rem, env(safe-area-inset-top, 0px));
+}
+
+.ob-payment-confirmed__hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin-top: 2.5rem;
+}
+
+.ob-payment-confirmed__glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 212, 176, 0.22) 0%, transparent 68%);
+  opacity: 0;
+  transform: scale(0.92);
+  animation: ob-payment-glow-in 700ms cubic-bezier(0.23, 1, 0.32, 1) 200ms both;
+}
+
+.ob-payment-confirmed__ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(240, 240, 238, 0.12);
+  opacity: 0;
+  transform: scale(0.88);
+  animation: ob-payment-ring-in 520ms cubic-bezier(0.23, 1, 0.32, 1) 120ms both;
+}
+
+.ob-payment-confirmed__check {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.94);
+  animation: ob-payment-check-in 480ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both;
+}
+
+.ob-payment-confirmed__check-circle {
+  fill: #141413;
+  stroke: #3a3a38;
+  stroke-width: 1.5;
+}
+
+.ob-payment-confirmed__check-path {
+  fill: none;
+  stroke: #b8d4b0;
+  stroke-width: 2.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+  animation: ob-payment-check-draw 420ms cubic-bezier(0.23, 1, 0.32, 1) 420ms both;
+}
+
+.ob-payment-confirmed__copy {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ob-payment-copy-in 440ms cubic-bezier(0.23, 1, 0.32, 1) 520ms both;
+}
+
+.ob-payment-confirmed__cta {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 2rem;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: ob-payment-cta-in 440ms cubic-bezier(0.23, 1, 0.32, 1) 640ms both;
+}
+
+@keyframes ob-payment-glow-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ob-payment-ring-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ob-payment-check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ob-payment-check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ob-payment-copy-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ob-payment-cta-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-payment-confirmed__glow,
+  .ob-payment-confirmed__ring,
+  .ob-payment-confirmed__check,
+  .ob-payment-confirmed__check-path,
+  .ob-payment-confirmed__copy,
+  .ob-payment-confirmed__cta {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ob-payment-confirmed__check-path {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Onboarding submit overlay */
 .ob-submit-overlay {
   position: fixed;
