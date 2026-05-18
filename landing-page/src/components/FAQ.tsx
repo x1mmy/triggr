@@ -126,7 +126,7 @@ export function FAQ() {
               color: '#F0F0EE',
             }}
           >
-            Common questions.
+            Still not sure?
           </h2>
         </div>
 

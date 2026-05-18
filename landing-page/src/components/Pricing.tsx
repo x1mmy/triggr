@@ -10,6 +10,7 @@ type PricingCardProps = {
   features: string[];
   cta: string;
   featured?: boolean;
+  guarantee?: string;
   onOpenModal: () => void;
 };
 
@@ -21,6 +22,7 @@ function PricingCard({
   features,
   cta,
   featured,
+  guarantee,
   onOpenModal,
 }: PricingCardProps) {
   const [hovered, setHovered] = useState(false);
@@ -127,11 +129,27 @@ function PricingCard({
           </div>
         ))}
       </div>
+      {guarantee ? (
+        <p
+          style={{
+            fontFamily: "'Figtree', sans-serif",
+            fontSize: '13px',
+            color: '#888884',
+            lineHeight: 1.65,
+            margin: 0,
+            marginTop: 'auto',
+            borderTop: '0.5px solid #222',
+            padding: '16px 0',
+          }}
+        >
+          {guarantee}
+        </p>
+      ) : null}
       <button
         type="button"
         onClick={onOpenModal}
         style={{
-          marginTop: 'auto',
+          marginTop: guarantee ? undefined : 'auto',
           display: 'block',
           textAlign: 'center',
           background: featured ? (hovered ? '#E8E8E6' : '#FFF') : hovered ? '#1A1A1A' : 'transparent',
@@ -188,6 +206,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
       features: ['Lead capture integration', 'Instant SMS to your phone', 'Google Sheets CRM', '30-day support'],
       cta: 'Get started',
       featured: false,
+      guarantee: 'Live and capturing leads within 48 hours — or we fix it free.',
     },
     {
       name: 'Full system setup',
@@ -203,12 +222,13 @@ export function Pricing({ onOpenModal }: PricingProps) {
       ],
       cta: 'Get started',
       featured: true,
+      guarantee: 'Live and capturing leads within 48 hours — or we fix it free.',
     },
     {
       name: 'Monthly retainer',
       price: '$150–$400',
       period: 'per month',
-      desc: "Ongoing maintenance, tweaks, and a monthly report so you know it's working.",
+      desc: "One booked job a month covers it. Over 12 months, that's $3,300 in recovered revenue vs $1,000 without it.",
       features: ['System maintenance', 'Workflow adjustments', 'Monthly performance report', 'Priority support'],
       cta: 'Get started',
       featured: false,
@@ -377,8 +397,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
 
         <div className="reveal" style={{ borderTop: '0.5px solid #1A1A1A', paddingTop: '24px', marginBottom: '16px' }}>
           <p style={{ fontFamily: "'Figtree', sans-serif", fontSize: '13px', color: '#444440', lineHeight: 1.7, maxWidth: '680px' }}>
-            Building a website? We offer lead conversion automation as an add-on — $500 to setup, $150/month. One client over
-            12 months is worth $3,300 vs $1,000 without it.
+            Building a website? We offer lead conversion automation as an add-on — $500 to setup, $150/month.
           </p>
         </div>
         <div className="reveal">

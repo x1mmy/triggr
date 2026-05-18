@@ -221,11 +221,11 @@ export function Hero({ onOpenModal }: HeroProps) {
               Get started
             </button>
             <a
-              href="#how-it-works"
+              href="https://www.usetriggr.com.au/demo"
               style={{
                 background: 'transparent',
                 color: '#F0F0EE',
-                border: '0.5px solid #333',
+                border: '0.5px solid #F0F0EE',
                 borderRadius: '6px',
                 padding: '11px 22px',
                 fontFamily: "'Figtree', sans-serif",
@@ -237,14 +237,14 @@ export function Hero({ onOpenModal }: HeroProps) {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#1A1A1A';
-                e.currentTarget.style.borderColor = '#444440';
+                e.currentTarget.style.borderColor = '#F0F0EE';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.borderColor = '#333';
+                e.currentTarget.style.borderColor = '#F0F0EE';
               }}
             >
-              See how it works
+              See a live demo →
             </a>
           </div>
 
