@@ -165,7 +165,7 @@ export function Hero({ onOpenModal }: HeroProps) {
           >
             Built properly.
             <br />
-            No agency required.
+            Runs without you.
           </h1>
 
           <p
