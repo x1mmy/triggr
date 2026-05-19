@@ -91,7 +91,7 @@ export function ContactForm({ source = 'landing page' }: ContactFormProps) {
         throw new Error('Failed to submit form');
       }
 
-      router.push(THANK_YOU_PATH);
+      router.replace(THANK_YOU_PATH);
     } catch {
       setSubmitError('Could not send your enquiry right now. Please try again in a minute.');
     } finally {

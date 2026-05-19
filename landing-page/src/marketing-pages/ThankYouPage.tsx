@@ -17,6 +17,9 @@ function ThankYouContent() {
       router.replace('/contact');
       return;
     }
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'generate_lead', form_name: 'contact' });
     setReady(true);
   }, [searchParams, router]);
 
