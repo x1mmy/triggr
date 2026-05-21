@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { formatSydneyTimestamp, sendTelegramMessage } from '@/lib/telegram';
 
 type DemoSmsPayload = {
   name: string;
@@ -35,6 +36,19 @@ function buildSmsMessage(name: string): string {
   return `Hi ${name}, this is what a Triggr lead alert looks like. You'd get this instantly when someone submits a form. That's it. No emails, no delays. -Triggr`;
 }
 
+function formatDemoSmsTelegramMessage(name: string, phone: string, businessType: string): string {
+  return [
+    '📱 New Demo SMS Request',
+    '',
+    `Name: ${name}`,
+    `Phone: ${phone}`,
+    `Business: ${businessType}`,
+    '',
+    `Submitted: ${formatSydneyTimestamp()}`,
+    'Source: /demo',
+  ].join('\n');
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -68,6 +82,11 @@ export async function POST(request: Request) {
 
     if (!webhookResponse.ok) {
       return NextResponse.json({ success: false, message: 'Failed to send SMS. Please try again.' }, { status: 502 });
+    }
+
+    const telegramResult = await sendTelegramMessage(formatDemoSmsTelegramMessage(name, phone, businessType));
+    if (!telegramResult.ok) {
+      console.error('Demo SMS Telegram notification failed:', telegramResult.error, telegramResult.details);
     }
 
     return NextResponse.json({ success: true, message: 'SMS sent successfully' });
