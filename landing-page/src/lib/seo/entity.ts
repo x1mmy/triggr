@@ -6,7 +6,7 @@ export const BUSINESS = {
   abn: '66 456 224 219',
   email: 'hi@usetriggr.com.au',
   description:
-    'Done-for-you AI automation and custom web development for Sydney trade businesses. Stop losing jobs to slow response times. Fast setup, zero templates.',
+    'Done-for-you AI automation and custom web development. Lead capture, workflows, and websites built to convert — fast setup, zero templates, no agencies.',
   areaServed: 'Sydney',
   addressLocality: 'Sydney',
   addressRegion: 'NSW',
