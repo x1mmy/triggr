@@ -54,6 +54,7 @@ export function CTAStrip({ onOpenModal }: CTAStripProps) {
         <div className="reveal" style={{ display: 'flex', gap: '10px', flexShrink: 0, alignItems: 'center', flexWrap: 'wrap' }}>
           <button
             type="button"
+            className="btn-primary"
             onClick={onOpenModal}
             style={{
               background: '#FFF',
@@ -65,7 +66,6 @@ export function CTAStrip({ onOpenModal }: CTAStripProps) {
               fontWeight: 500,
               fontSize: '14px',
               cursor: 'pointer',
-              transition: 'background 180ms',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#E8E8E6';
@@ -78,6 +78,7 @@ export function CTAStrip({ onOpenModal }: CTAStripProps) {
           </button>
           <a
             href="#how-it-works"
+            className="btn-secondary"
             style={{
               background: 'transparent',
               color: '#F0F0EE',
@@ -89,7 +90,6 @@ export function CTAStrip({ onOpenModal }: CTAStripProps) {
               fontSize: '14px',
               textDecoration: 'none',
               display: 'inline-block',
-              transition: 'background 180ms, border-color 180ms',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#1A1A1A';

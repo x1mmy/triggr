@@ -1,8 +1,11 @@
 .terms-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #090909;
   color: #f0f0ee;
   font-family: 'Figtree', sans-serif;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cline x1='0' y1='44' x2='44' y2='0' stroke='white' stroke-width='0.5' stroke-opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 44px 44px;
 }
 
 .terms-header {

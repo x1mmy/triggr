@@ -61,11 +61,15 @@ export function Services() {
             Done properly.
           </h2>
         </div>
-        <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        <div
+          data-reveal-group="services"
+          className="grid-2col"
+          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}
+        >
           {cols.map((col, i) => (
             <div
               key={i}
-              className="reveal"
+              className={`reveal reveal--scale card-lift${i === 1 ? ' reveal--subtle' : ''}`}
               style={{
                 background: '#111',
                 border: '0.5px solid #222',

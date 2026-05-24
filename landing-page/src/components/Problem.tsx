@@ -19,7 +19,7 @@ export function Problem() {
         >
           <div>
             <div
-              className="reveal"
+              className="reveal reveal--left"
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: '10px',
@@ -32,7 +32,7 @@ export function Problem() {
               The problem
             </div>
             <h2
-              className="reveal"
+              className="reveal reveal--left"
               style={{
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: 700,
@@ -48,7 +48,7 @@ export function Problem() {
               Silence loses.
             </h2>
             <p
-              className="reveal"
+              className="reveal reveal--left reveal--subtle"
               style={{
                 fontFamily: "'Figtree', sans-serif",
                 fontSize: '15px',
@@ -61,11 +61,14 @@ export function Problem() {
               to attract and then handed to someone else.
             </p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '8px' }}>
+          <div
+            data-reveal-group="problem-stats"
+            style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '8px' }}
+          >
             {problems.map((p, i) => (
               <div
                 key={i}
-                className="reveal"
+                className="reveal reveal--right reveal--scale card-lift"
                 style={{
                   background: '#111',
                   border: '0.5px solid #222',
@@ -74,7 +77,6 @@ export function Problem() {
                   display: 'flex',
                   gap: '20px',
                   alignItems: 'flex-start',
-                  transition: 'background 220ms cubic-bezier(.16,1,.3,1), border-color 220ms',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#1A1A1A';

@@ -31,7 +31,7 @@ function PricingCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="reveal"
+      className="reveal reveal--scale card-lift"
       style={{
         background: featured ? '#161616' : '#111',
         border: `0.5px solid ${featured ? '#444' : '#222'}`,
@@ -285,7 +285,11 @@ export function Pricing({ onOpenModal }: PricingProps) {
             </span>
             <div style={{ flex: 1, height: '0.5px', background: '#222' }} />
           </div>
-          <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+          <div
+            data-reveal-group="pricing-web"
+            className="grid-2col"
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}
+          >
             {webCards.map((card, i) => (
               <PricingCard key={i} {...card} onOpenModal={onOpenModal} />
             ))}
@@ -308,7 +312,11 @@ export function Pricing({ onOpenModal }: PricingProps) {
             </span>
             <div style={{ flex: 1, height: '0.5px', background: '#222' }} />
           </div>
-          <div className="grid-3col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+          <div
+            data-reveal-group="pricing-auto"
+            className="grid-3col"
+            style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}
+          >
             {autoCards.map((card, i) => (
               <PricingCard key={i} {...card} onOpenModal={onOpenModal} />
             ))}

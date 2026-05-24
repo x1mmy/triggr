@@ -89,9 +89,9 @@ export function HowItWorks() {
           </h2>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div data-reveal-group="how-steps" style={{ display: 'flex', flexDirection: 'column' }}>
           {steps.map((step, i) => (
-            <div key={i} className="reveal how-step-row">
+            <div key={i} className="reveal reveal--subtle how-step-row">
               <div className="how-step-meta">
                 <div className="how-num">{step.num}</div>
                 <div className="how-phase">{step.phase}</div>

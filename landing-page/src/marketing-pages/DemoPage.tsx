@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useState, type CSSProperties, type FormEvent } from 'react';
-import { LogoMark } from '@/components/LogoMark';
+import { MarketingPageHeader } from '@/components/MarketingPageHeader';
+import { MarketingScrollShell } from '@/components/MarketingScrollShell';
 
 type DemoFormState = {
   name: string;
@@ -111,100 +112,25 @@ export function DemoPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#090909', color: '#F0F0EE' }}>
-      <header
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '24px 24px 0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px',
-        }}
-      >
-        <a href="/" aria-label="Triggr home" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-          <LogoMark size={22} color="#F0F0EE" />
-          <span
-            style={{
-              fontFamily: "'Syne', sans-serif",
-              fontWeight: 700,
-              fontSize: '14px',
-              color: '#F0F0EE',
-              letterSpacing: '0.12em',
-            }}
-          >
-            TRIGGR
-          </span>
-        </a>
-        <a
-          href="/"
-          style={{
-            fontFamily: "'Figtree', sans-serif",
-            fontSize: '13px',
-            color: '#888884',
-            textDecoration: 'none',
-          }}
-        >
-          ← Back to site
-        </a>
-      </header>
+    <MarketingScrollShell>
+      <div className="marketing-page">
+        <MarketingPageHeader />
 
-      <main style={{ padding: '48px 24px 64px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <h1
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontWeight: 700,
-                fontSize: 'clamp(34px, 5vw, 54px)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-                color: '#F0F0EE',
-              }}
-            >
-              See It In Action
-            </h1>
-            <p
-              style={{
-                marginTop: '12px',
-                fontFamily: "'Figtree', sans-serif",
-                fontSize: '16px',
-                color: '#888884',
-                lineHeight: 1.7,
-                maxWidth: '760px',
-                marginInline: 'auto',
-              }}
-            >
-              Fill out the form below and you&apos;ll receive an instant SMS notification within 10 seconds. That&apos;s how
-              fast Triggr notifies you when a new lead comes in.
-            </p>
-            <p
-              style={{
-                marginTop: '8px',
-                fontFamily: "'Figtree', sans-serif",
-                fontSize: '15px',
-                color: '#888884',
-                lineHeight: 1.7,
-                maxWidth: '760px',
-                marginInline: 'auto',
-              }}
-            >
-              Add your own mobile number below. You&apos;ll get a demo SMS to your phone showing what a real lead
-              notification looks like.
-            </p>
-          </div>
+        <main className="marketing-main">
+          <div className="marketing-main__inner">
+            <div className="marketing-hero" data-reveal-group="demo-hero">
+              <h1 className="marketing-hero__title reveal">See It In Action</h1>
+              <p className="marketing-hero__lead marketing-hero__lead--wide reveal reveal--subtle" style={{ fontSize: '16px' }}>
+                Fill out the form below and you&apos;ll receive an instant SMS notification within 10 seconds. That&apos;s how
+                fast Triggr notifies you when a new lead comes in.
+              </p>
+              <p className="marketing-hero__lead marketing-hero__lead--wide reveal reveal--subtle" style={{ marginTop: '8px' }}>
+                Add your own mobile number below. You&apos;ll get a demo SMS to your phone showing what a real lead
+                notification looks like.
+              </p>
+            </div>
 
-          <div
-            style={{
-              maxWidth: '520px',
-              margin: '0 auto',
-              background: '#111111',
-              border: '0.5px solid #2A2A2A',
-              borderRadius: '6px',
-              padding: '40px',
-            }}
-          >
+            <div className="marketing-card reveal reveal--scale card-lift" style={{ maxWidth: '520px' }}>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <label style={labelStyle}>Name</label>
@@ -275,6 +201,7 @@ export function DemoPage() {
 
               <button
                 type="submit"
+                className="btn-primary"
                 disabled={submitting}
                 style={{
                   background: '#FFF',
@@ -286,7 +213,6 @@ export function DemoPage() {
                   fontFamily: "'Figtree', sans-serif",
                   fontWeight: 500,
                   fontSize: '14px',
-                  transition: 'background 180ms',
                   marginTop: '4px',
                   opacity: submitting ? 0.75 : 1,
                   cursor: submitting ? 'wait' : 'pointer',
@@ -307,9 +233,10 @@ export function DemoPage() {
             >
               Questions? Email hi@usetriggr.com.au
             </p>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </MarketingScrollShell>
   );
 }

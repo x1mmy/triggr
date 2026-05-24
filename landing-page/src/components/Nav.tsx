@@ -12,9 +12,17 @@ export function Nav({ onOpenModal }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 10));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   const links = [
@@ -39,7 +47,8 @@ export function Nav({ onOpenModal }: NavProps) {
         borderBottom: scrolled ? '0.5px solid #222' : '0.5px solid transparent',
         background: scrolled ? 'rgba(9,9,9,0.88)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        transition: 'background 220ms cubic-bezier(.16,1,.3,1), border-color 220ms cubic-bezier(.16,1,.3,1)',
+        transition:
+          'background 320ms cubic-bezier(0.23, 1, 0.32, 1), border-color 320ms cubic-bezier(0.23, 1, 0.32, 1), backdrop-filter 320ms cubic-bezier(0.23, 1, 0.32, 1)',
       }}
     >
       <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '9px', textDecoration: 'none' }}>
@@ -111,6 +120,7 @@ export function Nav({ onOpenModal }: NavProps) {
         </a>
         <button
           type="button"
+          className="btn-primary"
           onClick={onOpenModal}
           style={{
             background: '#FFF',
@@ -121,7 +131,6 @@ export function Nav({ onOpenModal }: NavProps) {
             fontFamily: "'Figtree', sans-serif",
             fontWeight: 500,
             fontSize: '12px',
-            transition: 'background 180ms',
             cursor: 'pointer',
             display: 'inline-block',
           }}

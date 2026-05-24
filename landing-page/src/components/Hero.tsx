@@ -93,6 +93,30 @@ export function Hero({ onOpenModal }: HeroProps) {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    const layer = document.querySelector<HTMLElement>('.hero-parallax-layer');
+    if (!layer) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = Math.min(window.scrollY * 0.22, 120);
+        layer.style.transform = `translate3d(0, ${y}px, 0)`;
+      });
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
   const stats: Stat[] = [
     { value: '< 60s', label: 'avg lead response time', notLast: true, notFirst: false },
     { value: '24/7', label: 'systems running', notLast: true, notFirst: true },
@@ -117,11 +141,11 @@ export function Hero({ onOpenModal }: HeroProps) {
 
   return (
     <section id="hero" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={heroDiagStyle} aria-hidden="true" />
+      <div className="hero-parallax-layer" style={heroDiagStyle} aria-hidden="true" />
       <div
         className="section-pad"
         style={{
-          minHeight: '100vh',
+          minHeight: '100dvh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -198,6 +222,7 @@ export function Hero({ onOpenModal }: HeroProps) {
           >
             <button
               type="button"
+              className="btn-primary"
               onClick={onOpenModal}
               style={{
                 background: '#FFF',
@@ -209,7 +234,6 @@ export function Hero({ onOpenModal }: HeroProps) {
                 fontWeight: 500,
                 fontSize: '14px',
                 cursor: 'pointer',
-                transition: 'background 180ms',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#E8E8E6';
@@ -222,6 +246,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             </button>
             <a
               href="https://www.usetriggr.com.au/demo"
+              className="btn-secondary"
               style={{
                 background: 'transparent',
                 color: '#F0F0EE',
@@ -233,7 +258,6 @@ export function Hero({ onOpenModal }: HeroProps) {
                 fontSize: '14px',
                 textDecoration: 'none',
                 display: 'inline-block',
-                transition: 'background 180ms, border-color 180ms',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#1A1A1A';
